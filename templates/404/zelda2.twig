@@ -1,0 +1,197 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+    <title>404! RETURN OF GANON!</title>
+    <style>
+    /* 
+        RESET ALL THE THINGS
+    */
+    * { box-sizing: border-box;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    #navigation {
+        position: absolute;
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        animation: showNav 0s 1 steps(2) forwards;
+        animation-delay: 10s;
+        z-index: 20;
+    }
+    #navigation > .caution {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url(/static/img/404/zelda2/caution.png) 50% 90% no-repeat;
+        background-size: 90%;
+    }
+    .zeldas-wrap {
+        position: relative;
+        margin: 5% auto 0 auto;
+        width: 100%;
+        padding: 0 20px;
+        z-index: 21;
+    }
+    .zeldas-wrap a {
+        display: block;
+        padding-left: 60px;
+        margin-bottom: 10px;
+    }
+    .zeldas-wrap a:hover {
+        background: url(/static/img/404/zelda2/icon.png) center left no-repeat;
+    }
+    .zeldas-wrap a > img {
+        max-width: 100%;
+    }
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: -o-pixelated;
+        image-rendering: pixelated;
+        image-rendering: optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
+        line-height: 1;
+        overflow: hidden;
+        background: #ff371a; /* ganon bg */
+        /* NES Timing
+        -webkit-animation: seizure 95ms 30 steps(2);
+                animation: seizure 95ms 30 steps(3);*/
+        -webkit-animation: seizure 95ms 30 steps(2);
+                animation: seizure 95ms 30 steps(2);
+    }
+    body:before, body:after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+    }
+    body:before {
+        visibility:visible;
+        background: url(/static/img/404/zelda2/link_ded.png) 50% 95% no-repeat;
+        -webkit-animation: hideLink 0s 1 steps(2) forwards;
+                animation: hideLink 0s 1 steps(2) forwards;
+        -webkit-animation-delay: 2850ms;
+                animation-delay: 2850ms;
+    }
+    body:after {
+        visibility:hidden;
+        background: url(/static/img/404/zelda2/ganon.png) center bottom no-repeat;
+        -webkit-animation: showGanon 0s 1 steps(2) forwards;
+                animation: showGanon 0s 1 steps(2) forwards;
+        -webkit-animation-delay: 2850ms;
+                animation-delay: 2850ms;
+        background-size: 70%;
+    }
+    @media (min-width: 576px) {
+        body:after {
+            background-size: 50%;
+        }
+        .zeldas-wrap {
+            width: 490px;
+        }
+        #navigation > .caution {
+            background-size: 30%;
+        }
+    }
+    /* Original NES
+    @-webkit-keyframes seizure {
+        33% {background: #4242ff;}
+        66% {background: #b53121;}
+        99% {background: #5ae731;}
+    }
+    @keyframes seizure {
+        33% {background: #4242ff;}
+        66% {background: #b53121;}
+        99% {background: #5ae731;}
+    }*/
+    @-webkit-keyframes seizure {
+        50% {background: #d02020;}
+        100% {background: #f84028;}
+    }
+    @keyframes seizure {
+        50% {background: #d02020;}
+        100% {background: #f84028;}
+    }
+    /* some css trickery */
+    @-webkit-keyframes hideLink {
+        50% {visibility:visible;}
+        100% {
+            /* turn link into 404 text */
+            background: url(/static/img/404/zelda2/404.png) center 20% no-repeat;
+            background-size: 40%;
+        }
+    }
+    @keyframes hideLink {
+        50% {visibility:visible;}
+        100% {
+            /* turn link into 404 text */
+            background: url(/static/img/404/zelda2/404.png) center 20% no-repeat;
+            background-size: 40%;
+        }
+    }
+    @-webkit-keyframes showGanon {
+        50% {visibility:hidden;}
+        100% {visibility:visible;}
+    }
+    @keyframes showGanon {
+        50% {visibility:hidden;}
+        100% {visibility:visible;}
+    }
+    @-webkit-keyframes showNav {
+        50% {visibility:hidden;}
+        100% {visibility:visible;}
+    }
+    @keyframes showNav {
+        50% {visibility:hidden;}
+        100% {visibility:visible;}
+    }
+    </style>
+</head>
+<body>
+    <div id="navigation">
+        <div class="zeldas-wrap">
+            <a href="/"><img src="/static/img/404/zelda2/continue.png" alt="CONTINUE" title="CONTINUE"></a>
+            <a href="/"><img src="/static/img/404/zelda2/save.png" alt="SAVE" title="SAVE"></a>
+        </div>
+        <div class="caution"></div>
+    </div>
+</body>
+</html>

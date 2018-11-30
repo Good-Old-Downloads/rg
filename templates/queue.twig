@@ -1,0 +1,47 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% block title %}{{'Queue'|trans}}{% endblock title %}
+
+{% block content %}
+{% import "card.twig" as card %}
+{% import "pagination.twig" as pager %}
+<div class="container">
+  {% include 'top_bar.twig' %}
+  <h1>{{'Queue'|trans}}</h1>
+  {% if uploading is not empty %}
+  <h3>{{'Currently Uploading'|trans}}</h3>
+  <div class="cards-wrap">
+    {% for rom in uploading %}
+      {{ card.input(rom) }}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if votes is not empty %}
+  {{ pager.input(pagination, '/queue') }}
+  <h3 class="f-l">{{'Up Next'|trans}}</h3>
+  <h3 class="f-r">{{'Votes'|trans}}</h3>
+  <div class="cards-wrap">
+    {% for rom in votes %}
+      {{ card.input(rom) }}
+    {% endfor %}
+  </div>
+  {{ pager.input(pagination, '/queue') }}
+  {% endif %}
+</div>
+{% endblock content %}

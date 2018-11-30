@@ -1,0 +1,75 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% macro input(rom, term = false) %}
+    <div class="rom-card" data-tip="{{ rom.name_original }}">
+        <a href="/{{ rom.console_slug }}/{{ rom.slug }}" class="card-link" tabindex="{{ loop.index }}"></a>
+        <div class="region" data-tip="{{ rom.region }}">
+            {% for flag in rom.iso_3166_1_alpha_2|split(',') %} {# if region has a comma means multiple flags #}
+                <span class="flag-icon flag-icon-{{ flag }}"></span>
+            {% endfor %}
+        </div>
+        <div class="card-right">
+            <div class="name">{{ rom.name }}</div>
+            <div class="additional">
+                {% if rom.disc %}
+                    <span data-tip="{% trans %}Disc{% endtrans %}">{% trans %}Disc{% endtrans %} {{ rom.disc }}</span>
+                {% endif %}
+                {% if rom.additional %}
+                <span data-tip="{% trans %}Additional{% endtrans %}" data-balloon-pos="right">
+                    {% if rom.disc %}|{% endif %}
+                    {{ rom.additional }}
+                </span>
+                {% endif %}
+                {% if rom.version %}
+                <span data-tip="{% trans %}Version{% endtrans %}" data-balloon-pos="right">
+                    {% if rom.additional or rom.disc %}|{% endif %}
+                    {{ rom.version }}
+                </span>
+                {% endif %}
+                {% if rom.devstatus %}
+                <span data-tip="{% trans %}Dev Status{% endtrans %}" data-balloon-pos="right">
+                    {% if rom.additional or rom.disc or rom.version %}|{% endif %}
+                    {{ rom.devstatus }}
+                </span>
+                {% endif %}
+            </div>
+            <div class="languages" data-tip="{{ rom.languages|split(',')|join(', ') }}" data-balloon-pos="right">{% spaceless %}
+                {% if rom.languages %}
+                    {% set langs = rom.languages|split(',') %}
+                    {% for lang in langs %}
+                        <span class="flag-icon flag-icon-{{ lang|lower }}"></span>
+                    {% endfor %}
+                {% endif %}
+                {% endspaceless %}
+            </div>
+        </div>
+        {% if rom.redump_id %}<a class="srclogo" href="http://redump.org/disc/{{ rom.redump_id }}/" target="_blank" data-tip="{% trans %}View game on redump.org{% endtrans %}"><img src="/static/img/redump_black.svg"></a>{% endif %}{% if rom.nointro_id %}<a class="srclogo" href="https://datomatic.no-intro.org/index.php?page=show_record&s={{ rom.nointro_system_id }}&n={{ rom.nointro_id }}" target="_blank" data-tip="{% trans %}View game on the DAT-o-MATIC{% endtrans %}"><img src="/static/img/no_intro_black.svg"></a>{% endif %}
+        {% set console_name = rom.console_name %}
+        {% if term %}
+            {# if search page then filter by console #}
+            <a href="/search/{{ rom.console_slug }}/{{ term }}" class="console-mobile" data-tip="{% trans %}Filter by {{ console_name }}{% endtrans %}">
+                <img src="/static/img/consoles/{{ rom.console_image }}">
+            </a>
+        {% else %}
+            {# else, just link to console page #}
+            <a href="/{{ rom.console_slug }}" class="console-mobile" data-tip="{{ console_name }}">
+                <img src="/static/img/consoles/{{ rom.console_image }}">
+            </a>
+        {% endif %}
+        {% if rom.votes %}<div class="votes">{{ rom.votes }}</div>{% endif %}
+    </div>
+{% endmacro %}

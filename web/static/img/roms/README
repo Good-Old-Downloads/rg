@@ -1,0 +1,2 @@
+Have to symlink the "Named_Boxarts" folder from https://github.com/libretro-thumbnails to the correct directories based on site console slug.
+Ex: Nintendo_-_Super_Nintendo_Entertainment_System/Named_Boxarts/ -> /rg/web/static/img/roms/snes/

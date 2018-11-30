@@ -1,0 +1,106 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% block title %}{{ rom.name }} ROM for {{ console.name }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% include 'top_bar.twig' %}
+    <div class="rom-wrap">
+        <div class="rom-title">
+            <h2>{{ rom.name }} {% if rom.disc %}({% trans %}Disc{% endtrans %} {{ rom.disc }}){% endif %}</h2>
+            {% if rom.additional %}<span class="additional">{{ rom.additional }}</span>{% endif %}
+        </div>
+        <div class="links">
+            {% if rom.redump_id %}<a href="http://redump.org/disc/{{ rom.redump_id }}/" target="_blank" data-tip="{% trans %}View game on redump.org{% endtrans %}"><img src="/static/img/redump.svg"></a>{% endif %}
+            {% if rom.nointro_id %}<a href="https://datomatic.no-intro.org/index.php?page=show_record&s={{ rom.nointro_system_id }}&n={{ rom.nointro_id }}" target="_blank" data-tip="{% trans %}View game on the DAT-o-MATIC{% endtrans %}"><img src="/static/img/no_intro_reverse.svg"></a>{% endif %}
+        </div>
+        <div class="details">
+            {% if has_boxart %}<div class="boxart"><img src="/static/img/roms/{{ console.slug }}/{{ rom.name_original|url_encode }}.png"></div>{% endif %}
+            <ul>
+                <li><span class="label">{% trans %}Region{% endtrans %}</span>
+                    <span class="content" data-tip="{{ rom.region }}" data-balloon-pos="right">
+                        {% for flag in rom.iso_3166_1_alpha_2|split(',') %} {# if region has a comma means multiple flags #}
+                            <span class="flag-icon flag-icon-{{ flag }}"></span>
+                        {% endfor %}
+                    </span>
+                </li>
+                <li><span class="label">{% trans %}System{% endtrans %}</span> <span class="content"><a href="/{{ console.slug }}">{{ console.name }}</a></span></li>
+                {% if rom.version %}<li><span class="label">{% trans %}Version{% endtrans %}</span> <span class="content">{{ rom.version }}</span></li>{% endif %}
+                {% if rom.languages %}
+                    {% set langs = rom.languages|split(',') %}
+                    <li>
+                        <span class="label">{% trans %}Languages{% endtrans %}</span>
+                        <span class="content" data-tip="{{ rom.languages|split(',')|join(', ') }}" data-balloon-pos="right">
+                            {% for lang in langs %}
+                                <span class="flag-icon flag-icon-{{ lang|lower }}"></span>
+                            {% endfor %}
+                        </span>
+                    </li>
+                {% endif %}
+                {% if rom.devstatus %}<li><span class="label">{% trans %}Dev Status{% endtrans %}</span> <span class="content">{{ rom.devstatus }}</span></li>{% endif %}
+                {% if rom.additional %}<li><span class="label">{% trans %}Edition{% endtrans %}</span> <span class="content">{{ rom.additional }}</span></li>{% endif %}
+                <li><span class="label">{% trans %}Original Name{% endtrans %}</span> <span class="content">{{ rom.name_original }}</span></li>
+            </ul>
+        </div>
+        <div class="links-container">
+            <form autocomplete="off"> {# Don't stay checked when refreshed #}
+            {% if links is empty and rom.uploading == 0 %}
+                <div class="host __vote-modal-trigger" data-id="{{ rom.id }}">
+                    {% trans %}There are no download links currently available. Click here to vote for this item to be uploaded.{% endtrans %}
+                </div>
+                <div class="host hidden" id="vote-captcha-wrap" data-id="{{ rom.id }}">
+                    <div id="vote-captcha"></div>
+                    <span id="vote-captcha-message" class="hidden"></span>
+                    <span id="vote-captcha-success" class="hidden">{% trans %}Vote cast! Check the <a href="/queue">upload queue</a> to see when it'll upload!{% endtrans %}</span>
+                    <button id="vote-btn" type="button">{% trans %}Vote{% endtrans %}</button>
+                </div>
+            {% elseif 'now'|date('U') - rom.last_upload > 60*86400 %}
+            {# If last_upload is older than 60 days #}
+                {# 
+                    TODO:
+                      Show captcha box here, also need to add date check in /api/captcha/vote endpoint in routes_api.php
+                #}
+            {% endif %}
+            {% if rom.uploading == 1 %}
+                <div class="host __currently_uploading">
+                    {% trans %}ROM is currently uploading. Check the <a href="/queue">upload queue</a>!{% endtrans %}
+                </div>
+            {% endif %}
+            {% for host in links %}
+                <div class="link-group-wrapper">
+                    <input type="checkbox" id="link-{{ loop.index0 }}">
+                    <div class="link-helper open-all no-js-hide" title="{% trans %}Open all Links (Allow Popups){% endtrans %}"><i class="fas fa-external-link-square-alt"></i></div>
+                    <div class="link-helper clip no-js-hide" title="{% trans %}Copy Links to Clipboard{% endtrans %}"><i class="fas fa-copy"></i></div>
+                    <label for="link-{{ loop.index0 }}" class="host">
+                        {{ host.icon|raw }} <span>{{ host.name }}</span>{% if host.slug == 'gdrive' %} <a class="btn" href="/google-drive-bypass-tutorial">{% trans %}BYPASS GOOGLE DRIVE QUOTA TUTORIAL{% endtrans %}</a>{% endif %}
+                        <i class="fas fa-plus toggle-icon" title="{% trans %}Toggle Download Links{% endtrans %}"></i>
+                        <i class="fas fa-minus toggle-icon"></i>
+                    </label>
+                    <div class="links-wrapper">
+                        {% for link in host.links %}
+                            <div class="link"><a href="{{ link.link }}" target="_blank">{{ link.name }}</a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

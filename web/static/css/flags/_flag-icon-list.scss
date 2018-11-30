@@ -1,0 +1,46 @@
+@include flag-icon(ar);
+@include flag-icon(au);
+@include flag-icon(at);
+@include flag-icon(br);
+@include flag-icon(ca);
+@include flag-icon(cn, zh);
+@include flag-icon(hr);
+@include flag-icon(dk, da);
+@include flag-icon(eu);
+@include flag-icon(fi, fi);
+@include flag-icon(fr, fr);
+@include flag-icon(de, de);
+@include flag-icon(gr, el);
+@include flag-icon(hk);
+@include flag-icon(hu);
+@include flag-icon(in);
+@include flag-icon(ie);
+@include flag-icon(it, it);
+@include flag-icon(jp, ja);
+@include flag-icon(kr, ko);
+@include flag-icon(nl, nl);
+@include flag-icon(no, no);
+@include flag-icon(pl, pl);
+@include flag-icon(pt, pt);
+@include flag-icon(ru, ru);
+@include flag-icon(es, es);
+@include flag-icon(ca, ca); // Catalonia
+@include flag-icon(se, sv);
+@include flag-icon(tw);
+@include flag-icon(gb, en);
+@include flag-icon(us);
+@include flag-icon(cz, cs);
+@include flag-icon(ch);
+@include flag-icon(za);
+@include flag-icon(be);
+@include flag-icon(tr, tr);
+@include flag-icon(unk); // Unknown
+@include flag-icon(wor); // World
+@include flag-icon(asi); // Asia
+@include flag-icon(ara, ar); // Arabic language
+@include flag-icon(gae, gd); // Gaelic, Scottish Gaelic (Thanks to Nim)
+
+// Bunch of unknown flags
+@include flag-icon(unk, hi);
+@include flag-icon(unk, pa);
+@include flag-icon(unk, ta);

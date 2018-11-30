@@ -1,0 +1,397 @@
+/*
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+$outrun-red: #d8061f;
+$outrun-yellow: #f2f224;
+
+& {
+  color: rgba(#fff, .85);
+  background: rgb(7,7,41);
+  background: linear-gradient(180deg, #070729, #212e58, #431e49);
+  &.index {
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      background: url(/static/img/stars.png) repeat;
+      animation: stars 100s linear infinite;
+      height: 50%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -6;
+    }
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background: url(/static/img/stars2.png) repeat;
+      animation: stars2 150s linear infinite;
+      height: 50%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -6;
+    }
+  }
+}
+.container.index {
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto;
+    top: 5px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #EFDF75 0%, #EF9BDC 50%, #f4bae7 100%);
+    z-index: -5;
+    @include mq($from: sm) {
+      top: 20px;
+      width: 50vh;
+      height: 50vh;
+    }
+  }
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto;
+    top: 5px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom,  transparent 0%, transparent 7%, #070729 7%, #070729 15%, transparent 15%, transparent 28%, #070729 28%, #070729 42%, transparent 42%, transparent 54%, #070729 54%, #070729 64%, transparent 64%, transparent 71%, #070729 71%, #070729 77%, transparent 77%, transparent 83%, #070729 83%, #070729 87%, transparent 87%, transparent 90%, #070729 90%, #070729 92%, transparent 92%, transparent 94%, #070729 94%, #070729 96%, transparent 96%, transparent 97%, #070729 97%);
+    z-index: -5;
+    @include mq($from: sm) {
+      top: 20px;
+      width: 50vh;
+      height: 50vh;
+    }
+  }
+}
+
+#notice {
+  > .contents {
+    border-color: #283b77;
+    background: rgba(0,0,0, .4);
+  }
+}
+
+#search-bar {
+  input[name="t"], select {
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+    border-color: $outrun-red;
+    box-shadow: 0px 0px 10px 0px rgba($outrun-red, .7), inset 0px 0px 15px 0px rgba($outrun-red, 1);
+    background: rgba(0,0,0, .4);
+  }
+  input[name="t"]::placeholder {
+    color: #fff;
+  }
+  select {
+    background: rgba(0,0,0,0.4) url('/static/img/arrow_dark.png') no-repeat right center;
+    option {
+      background-color: #0e1135;
+    }
+  }
+  > button {
+    background: $outrun-red;
+  }
+}
+nav {
+  .nav-item {
+    &:hover {
+      background: rgba($outrun-yellow, .1);
+      border: 1px solid $outrun-yellow;
+      box-shadow: $shadow-props;
+    }
+    &.dropdown {
+      min-width: 70px;
+      color: $outrun-yellow;
+      ul {
+        background: $body-bg;
+        &:last-child {
+          border-bottom: 1px solid $outrun-yellow;
+        }
+        li {
+          border: 1px solid $outrun-yellow;
+          border-bottom: 0;
+          button {
+            color: $body-color;
+            &:hover {
+              background: rgba($outrun-yellow, .1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.cards-wrap {
+  .rom-card {
+    background: transparent;
+    border: 2px solid lighten($outrun-yellow, 20%);
+    box-shadow: 0px 0px 2px 0px $outrun-yellow, inset 0px 0px 2px 0px $outrun-yellow;
+    &:hover {
+      animation: neon-pulse 70ms steps(2) infinite;
+    }
+    .region {
+      border-right: 1px solid lighten($outrun-yellow, 20%);
+    }
+    .console-mobile {
+      border-left: 1px solid lighten($outrun-yellow, 20%);
+      img {
+        filter: hue-rotate(180deg) brightness(220%) drop-shadow(0px 0px 10px rgba(239, 89, 232, 0.8));
+      }
+      &:hover {
+        background: rgba(#ffcaff, .1);
+      }
+    }
+    .votes {
+      border-left: 1px solid lighten($outrun-yellow, 20%);
+    }
+  }
+}
+
+.console-nav {
+  .console {
+    background: transparent;
+    border: 2px solid lighten($outrun-yellow, 20%);
+    box-shadow: 0px 0px 5px 0px $outrun-yellow, inset 0px 0px 5px 0px $outrun-yellow;
+    border-radius: 25px;
+    .image {
+      img {
+        filter: hue-rotate(180deg) brightness(220%) drop-shadow(0px 0px 10px rgba(239, 89, 232, 0.8));
+      }
+    }
+    &:hover {
+      animation: neon-pulse 70ms steps(2) infinite;
+      img {
+        animation: flicker 10s infinite alternate;
+      }
+    }
+  }
+}
+
+.container.console {
+  .console-details {
+    > img {
+      filter: drop-shadow(0px 0px 10px #F596FF);
+    }
+  }
+  .console-buttons {
+    border-color: $outrun-red;
+    > a, .expand {
+      border: 2px solid lighten($outrun-yellow, 20%);
+      box-shadow: 0px 0px 3px 0px $outrun-yellow, inset 0px 0px 3px 0px $outrun-yellow;
+    }
+  }
+}
+
+.container.index {
+  .search-container {
+    .links {
+      a, > .dropdown {
+        color: $outrun-red;
+        text-shadow: 0px 0px 2px $outrun-red;
+      }
+      > .dropdown {
+        ul {
+          background: rgba(0,0,0, .8);
+          border: 1px solid $outrun-red;
+          li {
+            button {
+              color: #fff;
+              &:hover {
+                text-decoration-skip-ink: none;
+                text-decoration: wavy underline;
+              }
+            }
+            &:hover {
+              background: #000;
+            }
+          }
+        }
+      }
+    }
+    > .logo-container {
+      margin: 0;
+      margin-bottom: 10px;
+      > img {
+        image-rendering: auto; // uncrisp
+        @include mq($from: sm) {
+          height: 180px;
+        }
+      }
+    }
+  }
+}
+
+a {
+  color: $outrun-yellow;
+  text-decoration-skip-ink: none;
+  text-shadow: 2px 0px 6px rgba($outrun-yellow, .8);
+  &:hover {
+    color: $outrun-yellow;
+    text-shadow: 2px 0px 10px rgba($outrun-yellow, 1);
+    text-decoration: wavy underline;
+  }
+}
+
+.pagination {
+  .btn {
+    color: #fff;
+    border: 1px solid $outrun-red;
+    background: transparent;
+  }
+  .active {
+    cursor: default;
+    color: rgba(#fff,.45);
+  }
+  a[disabled] {
+    color: #fff;
+    &:hover {
+      color: $link-hover-color;  
+    }
+  }
+}
+
+.rom-wrap {
+  &:before {
+    display: none;
+  }
+  border: 1px solid $outrun-red;
+  box-shadow: 0px 0px 10px 0px rgba($outrun-red, .7), inset 0px 0px 200px 0px rgba($outrun-red, .5);
+  background: transparent;
+  .details {
+    .boxart {
+      box-sizing: content-box;
+      border: 1px solid $outrun-red;
+      box-shadow: 0px 0px 10px 0px rgba($outrun-red, .7);
+      padding: 5px;
+      > img {
+        border: 1px solid $outrun-red;
+      }
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: none;
+      }
+    }
+    ul {
+      li {
+        > .content {
+          > a {
+            color: rgba(255,255,255,0.85);
+          }
+        }
+      }
+    }
+  }
+  .links-container {
+    form {
+      border: 1px solid $outrun-red;
+      box-shadow: 0px 0px 10px 0px rgba($outrun-red, .7);
+    }
+    .link, .host, .link-helper {
+      background: transparent;
+    }
+    .link > a:hover {
+      background: rgba($outrun-red, .1);
+    }
+    .host, .link-helper {
+      &:hover {
+        &:before {
+          background: rgba($outrun-red, .1);
+        }
+      }
+    }
+  }
+}
+
+#vote-captcha {
+  .visualCaptcha-possibilities {
+    .img {
+      &.visualCaptcha-selected {
+        border: 2px solid $outrun-red;
+      }
+    }
+  }
+}
+
+.srclogo > img,
+img.fac-hoster {
+  filter: invert(100%);
+}
+
+.btn, button {
+  color: #fff;
+  text-shadow: 0 0 10px #fff;
+  background: $outrun-red;
+}
+
+#theme-toggler {
+  background: #FFFDF1;
+  border: 2px solid #22b14c;
+  > button {
+    width: 100%;
+    height: 100%;
+    background: none;
+  }
+}
+
+@-webkit-keyframes neon-pulse {
+  0% {
+    box-shadow: 0px 0px 15px 0px $outrun-yellow, inset 0px 0px 15px 0px $outrun-yellow;
+  }
+  100% {
+    box-shadow: 0px 0px 18px 0px $outrun-yellow, inset 0px 0px 18px 0px $outrun-yellow;
+  }
+}
+
+@keyframes flicker {
+  0%, 20%, 27%, 40%, 49%, 51%, 79%, 81%, 100% {
+    filter: sepia(1%) hue-rotate(180deg) brightness(220%) drop-shadow(0px 0px 10px rgba(239, 89, 232, 0.8));
+  }
+  27.9999999999%, 39.99999999999%, 50%, 80% { 
+    filter: sepia(1%) hue-rotate(180deg) brightness(60%);
+  }
+}
+
+@keyframes stars {
+  from {
+    background-position: 0 0;
+  } to {
+    background-position: 0 -5000px;
+  }
+}
+@keyframes stars2 {
+  from {
+    background-position: 20% 0;
+  } to {
+    background-position: 20% -5000px;
+  }
+}

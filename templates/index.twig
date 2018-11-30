@@ -1,0 +1,76 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% set currentPage = 'home' %}
+
+{% block title %}Retro Games{% endblock title %}
+
+{% block content %}
+<div class="container index">
+  <div class="search-container">
+    <div class="logo-container">
+      <img src="/static/img/logo_{{ theme }}.svg">
+    </div>
+    {% if notice %}<div id="notice"><div class="contents">{{ notice|raw }}</div></div>{% endif %}
+    <form id="search-bar" action="/search/" method="get">
+        <input name="t" autocomplete="off" placeholder="{% trans %}Search...{% endtrans %}" type="search" {% if term %}value="{{ term }}"{% endif %}>
+        <select name="c">
+            <option value="all">{% trans %}All Consoles{% endtrans %}</option>
+            {% for c in consoles %}
+                <option value="{{ c.slug }}" {% if console.slug == c.slug %}selected{% endif %}>{{ c.name|replace({"\r\n": ""}) }}</option>
+            {% endfor %}
+        </select>
+        <select name="r">
+            <option value="any" {% if region == "any" %}selected{% endif %}>{% trans %}Any Region{% endtrans %}</option>
+            <option value="america" {% if region == "america" %}selected{% endif %}>{% trans %}America{% endtrans %}</option>
+            <option value="asia" {% if region == "asia" %}selected{% endif %}>{% trans %}Asia{% endtrans %}</option>
+            <option value="europe" {% if region == "europe" %}selected{% endif %}>{% trans %}Europe{% endtrans %}</option>
+        </select>
+        <button type="submit"><i class="fas fa-chevron-right"></i></button>
+    </form>
+    <div class="links">
+      <a href="/faq">{% trans %}FAQ{% endtrans %}</a>
+      <a href="/queue">{% trans %}Queue{% endtrans %}</a>
+      <div class="dropdown" title="{% trans %}Change Language{% endtrans %}">
+        <span><i class="fas fa-language fa-fw"></i> <i class="fas fa-chevron-down fa-xs fa-fw"></i></span>
+        <ul>
+          <form method="post">
+            <li><button type="submit" value="de_DE" name="setlang">Deutsch</button></li>
+            <li><button type="submit" value="en_US" name="setlang">English</button></li>
+            <li><button type="submit" value="el_GR" name="setlang">Ελληνικά</button></li>
+            <li><button type="submit" value="ru_RU" name="setlang">Русский</button></li>
+            <li><button type="submit" value="en_CA" name="setlang">Q*bertese</button></li>
+          </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="console-nav">
+    {% for console in consoles %}
+    <a href="/{{ console.slug }}" class="console">
+      <div class="image">
+        <img src="/static/img/consoles/{{ console.image }}">
+      </div>
+      <div class="name">
+        <span>{{ console.name|nl2br }}</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

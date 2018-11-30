@@ -1,0 +1,44 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% block title %}{{'FAQ'|trans}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+  {% include 'top_bar.twig' %}
+  <h1>{{'FAQ'|trans}}</h1>
+  <h3>{{'What is Retro Games?'|trans}}</h3>
+  <p>{{'A site which automates the process of sharing verified redump/no-intro roms.'|trans}}</p>
+
+  <h3>{{'How does it work?'|trans}}</h3>
+  <p>{{'Simply vote for the roms you want and the site will upload them. Roms with more votes will be uploaded first.'|trans}}</p>
+
+  <h3>{{'What if the links go down?'|trans }}</h3>
+  <p>{{"The system saves the upload date after a rom is uploaded. You'll be able to vote for the game to be re-uploaded 60 days later. Then the cycle starts over."|trans}}</p>
+
+  <h3>{{"Why can't I find [insert game here] or [insert system here]?"|trans}}</h3>
+  <p>{{"We will continue to add new systems and additional games in the future. So be sure to check back!"|trans|nl2br}}</p>
+
+  <h3>{{'How do I download or extract files?'|trans}}</h3>
+  <p>{{ 'We recommend %jdownloader2link% for downloading and %7ziplink% for extracting files.'|trans|nl2br|replace({'%jdownloader2link%': '<a href="http://jdownloader.org/jdownloader2" target="_blank">JDownloader 2</a>', '%7ziplink%': '<a href="http://www.7-zip.org/download.html" target="_blank">7-Zip</a>'})|raw }}</p>
+
+  <h3>{{'How can I make sure the files have not been tampered with?'|trans}}</h3>
+  <p>{{"Compare the hashes of the files with the hashes found in redump.org/No-Intro.
+    You can use a program like HashTab or HashCheck to check your files."|trans|nl2br}}</p>
+</div>
+{% endblock content %}

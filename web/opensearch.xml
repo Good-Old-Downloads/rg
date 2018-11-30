@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Retro Games Search</ShortName>
+  <Description>Search for Retro games on Good Old Downloads</Description>
+  <Url type="text/html" method="get" template="https://retrogames.goodolddownloads.com/search/{searchTerms}"/>
+  <Image width="16" height="16">https://retrogames.goodolddownloads.com/static/img/favicon-16.png</Image>
+  <InputEncoding>UTF-8</InputEncoding>
+  <SearchForm>https://retrogames.goodolddownloads.com/</SearchForm>
+</OpenSearchDescription>

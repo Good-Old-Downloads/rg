@@ -1,0 +1,143 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+    <title>re: Page Request</title>
+    <style>
+    /* 
+        RESET ALL THE THINGS
+    */
+    * { box-sizing: border-box;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    html, body, #shodan {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: #060117;
+        overflow: hidden;
+    }
+    #shodan > img, #shodan-fancy {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        image-rendering: optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 90%;
+    }
+    #shodan {
+        width: 100%;
+        height: 100%;
+    }
+    .hidden {
+        display: none;
+    }
+    #video-systemshock2 {
+        /* must not use display: none; or opacity or visibility cause some browsers won't autoplay the video */
+        position: absolute;
+        bottom: -500px;
+        right: -500px;
+        z-index: -99999;
+    }
+    @media (min-width: 576px) {
+        #shodan > img, #shodan-fancy {
+            min-width: auto;
+            max-width: 90%;
+            min-height: 75%;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="shodan"><img src="/static/img/404/ss2/shodan_log.png"></div>
+    <canvas id="shodan-fancy" class="hidden"></canvas>
+    <iframe id="video-systemshock2" width="5" height="5" src="https://www.youtube.com/embed/Tk5cDyvhJEE?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    <script>
+        // JS works/enabled, hide the fixed date Shodan
+        document.getElementById('shodan').classList.add('hidden');
+        document.getElementById('shodan-fancy').classList.remove('hidden');
+
+        var generateText = function(text, call){
+            // this is too much effort for a single 404 page...
+            var letters = {"0":{"x":15,"w":8},"1":{"x":23,"w":4},"2":{"x":27,"w":6},"3":{"x":33,"w":7},"4":{"x":40,"w":7},"5":{"x":47,"w":7},"6":{"x":54,"w":7},"7":{"x":61,"w":6},"8":{"x":67,"w":7},"9":{"x":74,"w":7}," ":{"x":0,"w":5},"!":{"x":5,"w":4},",":{"x":9,"w":3},".":{"x":12,"w":3},"?":{"x":81,"w":6},"A":{"x":87,"w":8},"B":{"x":95,"w":7},"C":{"x":102,"w":8},"D":{"x":110,"w":7},"E":{"x":117,"w":6},"F":{"x":123,"w":6},"G":{"x":129,"w":7},"H":{"x":136,"w":7},"I":{"x":143,"w":2},"J":{"x":145,"w":6},"K":{"x":151,"w":7},"L":{"x":158,"w":6},"M":{"x":164,"w":10},"N":{"x":174,"w":8},"O":{"x":182,"w":8},"P":{"x":190,"w":7},"Q":{"x":197,"w":9},"R":{"x":206,"w":7},"S":{"x":213,"w":7},"T":{"x":220,"w":8},"U":{"x":228,"w":7},"V":{"x":235,"w":8},"W":{"x":243,"w":13},"X":{"x":256,"w":8},"Y":{"x":264,"w":8},"Z":{"x":272,"w":8},"a":{"x":280,"w":6},"b":{"x":286,"w":6},"c":{"x":292,"w":6},"d":{"x":298,"w":5},"e":{"x":303,"w":5},"f":{"x":308,"w":4},"g":{"x":312,"w":5},"h":{"x":317,"w":5},"i":{"x":322,"w":2},"j":{"x":324,"w":3},"k":{"x":327,"w":5},"l":{"x":332,"w":2},"m":{"x":334,"w":9},"n":{"x":343,"w":5},"o":{"x":348,"w":6},"p":{"x":354,"w":6},"q":{"x":360,"w":5},"r":{"x":365,"w":5},"s":{"x":370,"w":6},"t":{"x":376,"w":5},"u":{"x":381,"w":5},"v":{"x":386,"w":6},"w":{"x":392,"w":9},"x":{"x":401,"w":6},"y":{"x":407,"w":6},"z":{"x":413,"w":6}};
+
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            canvas.width = 500;
+            canvas.height = 500;
+
+            var lettersImg = new Image();
+            lettersImg.onload = function(){
+                var lastPos = 0;
+                for (var i = 0; i < text.split('').length; i++) {
+                    var letter = text.split('')[i];
+                    context.drawImage(lettersImg, letters[letter].x, 0, letters[letter].w, 12, lastPos, 0, letters[letter].w, 12);
+                    lastPos = lastPos+letters[letter].w;
+                }
+                call(canvas, lastPos);
+            };
+            lettersImg.src = '/static/img/404/ss2/letters.png';
+        };
+
+        var canvas = document.getElementById('shodan-fancy');
+        var context = canvas.getContext('2d');
+        canvas.width = 188;
+        canvas.height = 296;
+
+        var today = new Date();
+        var month = today.toLocaleDateString('en-us', {month: 'short'}).toUpperCase();
+        var day = ('0' + today.getDate()).slice( - 2);
+        var year = today.getFullYear().toString().substr(-2);
+        var shodanImg = new Image();
+        shodanImg.onload = function(){
+            generateText(day+'.'+month+'.'+year, function(c, w){
+                context.drawImage(shodanImg, 0, 0); // Draw SHODAN
+                context.fillStyle = '#003e2c';
+                context.fillRect(65, 105, w, 12);
+                context.drawImage(c, 65, 105); // Draw date
+            });
+        };
+        shodanImg.src = '/static/img/404/ss2/shodan_log.png';
+
+        var audio = document.getElementById('video-systemshock2');
+        audio.addEventListener('load', function() {
+            this.contentWindow.postMessage('{"event":"command","func":"setPlaybackQuality","args":["small"]}', "*");
+            this.contentWindow.postMessage('{"event":"command","func":"playVideo"}', "*");
+            this.contentWindow.postMessage('{"event":"command","func":"unMute"}', "*");
+            this.contentWindow.postMessage('{"event":"command","func":"setVolume","args":["100"]}', "*");
+        });
+    </script>
+</body>
+</html>

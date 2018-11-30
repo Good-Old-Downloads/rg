@@ -1,0 +1,13 @@
+{
+    "require": {
+        "twig/twig": "~2.0",
+        "twig/extensions": "^1.5",
+        "emotionloop/visualcaptcha": "^0.0.8",
+        "slim/slim": "3.0",
+        "slim/twig-view": "^2.3",
+        "ausi/slug-generator": "^1.0",
+        "cocur/slugify": "^3.1",
+        "guzzlehttp/guzzle": "^6.3",
+        "akrabat/ip-address-middleware": "^1.0"
+    }
+}

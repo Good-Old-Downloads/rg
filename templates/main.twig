@@ -1,0 +1,103 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<!--
+
+
+  Reggie watches...
+  
+
+                ██████████████████
+          ██████████████████████████
+        ████████████████████████████████
+      ████████████████████████████████████
+      ████████████████████████████████████
+    ████████████████████████████████████████
+    ████████▒▒▒▒▒▒██████████████████████████
+    ██████▒▒          ▒▒▒▒▒▒████████████████
+    ████▒▒              ▒▒▒▒▒▒██████████████
+    ████▒▒              ▒▒▒▒▒▒██████████████
+    ████▒▒                ▒▒████████████████
+    ████                  ▒▒▒▒██████████████
+      ██▒▒▒▒        ▒▒████▒▒▒▒▒▒▒▒██████████
+      ████████▒▒▒▒▒▒████████████▒▒▒▒████▒▒██
+      ████  ████  ██▒▒  ██  ██▒▒▒▒▒▒██▒▒▒▒▒▒██
+      ▒▒      ▒▒    ▒▒▒▒  ▒▒  ▒▒▒▒▒▒██▒▒██▒▒██
+            ▒▒    ▒▒▒▒        ▒▒▒▒▒▒██████▒▒
+            ▒▒    ▒▒          ▒▒▒▒██▒▒██  ▒▒
+      ▒▒    ██▒▒▒▒██▒▒██    ▒▒▒▒▒▒██▒▒▒▒▒▒
+      ▒▒▒▒▒▒▒▒████████▒▒▒▒▒▒▒▒██▒▒████▒▒██
+      ▒▒██▒▒▒▒    ▒▒▒▒▒▒██▒▒▒▒██▒▒██████
+        ▒▒▒▒████████████▒▒▒▒▒▒▒▒▒▒██████
+        ▒▒  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒██████▒▒
+        ▒▒▒▒  ▒▒▒▒▒▒      ▒▒▒▒▒▒██████▒▒
+          ▒▒            ▒▒▒▒▒▒██████▒▒  ████
+          ▒▒▒▒      ▒▒▒▒▒▒████████▒▒      ████
+            ▒▒▒▒▒▒▒▒▒▒██████████▒▒      ██▒▒▒▒████
+              ████████████████▒▒      ██▒▒▒▒▒▒██▒▒▒▒██
+            ██  ████████████▒▒▒▒    ██▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒
+        ██▒▒▒▒    ████████▒▒▒▒      ▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+    ██▒▒▒▒▒▒▒▒██  ▒▒████          ██▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+  ██▒▒▒▒▒▒▒▒██████  ██        ██▒▒▒▒▒▒▒▒██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+
+Translators:
+Greek - MnSXx
+German - Venom, Christsnatcher
+Russian - L3G4CY
+
+-->
+<!DOCTYPE html>
+<html lang="{{ language['ISO-639-1'] }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+    <title>{% block title %}{% endblock title %} | Good Old Downloads</title>
+    {{ loadCSS(['/static/css/style.css'], []) }}
+
+    <link rel="icon" type="image/png" href="/static/img/favicon-16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/img/favicon-32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/img/favicon-96.png" sizes="96x96">
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Scene Games Search - Good Old Downloads">
+
+    <link rel="apple-touch-icon" href="/static/img/apple-120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/static/img/apple-167.png">
+    <meta name="theme-color" content="{% if theme == 'dark' %}#df0a3b{% else %}#22b14c{% endif %}">
+    <meta property="twitter:site" content="@goddownloads">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GoodOldDownloads.com">
+    <meta property="og:title" content="{{ block('title') }}">
+    {% block meta %}
+    <meta property="og:image" content="https://retrogames.goodolddownloads.com/static/img/apple-180.png">
+    {% endblock meta %}
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="no-js {{ theme }} {% if page_name %} {{ page_name }}{% endif %}">
+  <form id="theme-toggler" method="post">
+    <button type="submit" name="settheme" value="{% if theme == 'dark' %}light{% else %}dark{% endif %}"></button>
+  </form>
+{% block content %}{% endblock content %}
+{{ loadJS(['/static/js/main.min.js'], []) }}
+{% block scripts %}{% endblock scripts %}
+</body>
+</html>

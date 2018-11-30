@@ -1,0 +1,436 @@
+/*
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Claudio Holanda
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+/*
+
+  GOD Modifications:
+  - Remove unnecessary mixins
+  - Select [data-tip]
+  - Use static arrow images (CORS)
+  - Position tooltip top-left by default
+
+*/
+
+//
+// Variables
+// -----------------------------------------
+
+$balloon-bg:             fade-out(#111, .1) !default;
+$balloon-base-size:      10px !default;
+$balloon-arrow-height:   6px;
+
+
+//
+// Mixins
+// -----------------------------------------
+
+  @mixin svg-arrow ($color, $position: up) {
+
+    $height:  6px;
+    $width:   18px;
+
+    background-image: url('/static/img/tooltip_arrow.svg');  // top-left
+    @if ($position == down) {
+      background-image: none;
+    } @else if ($position == left) {
+      background-image: none;
+    } @else if ($position == right) {
+      background-image: url('/static/img/tooltip_arrow_side.svg');
+    }
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: $width;
+    height: $height;
+  }
+
+  @mixin base-effects() {
+    opacity: 0;
+    pointer-events: none;
+    transition: all .18s ease-out .18s;
+  }
+
+  @mixin normalized-text() {
+    font-family: sans-serif !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-shadow: none !important;
+    font-size: $balloon-base-size + 2 !important;
+  }
+
+
+//
+// Styles
+// -----------------------------------------
+
+// IE 11 button bugfix
+button[data-tip] {
+  overflow: visible;
+}
+
+[data-tip] {
+  position: relative; // alt. absolute or fixed
+
+  // Fixing iOS Safari event issue.
+  // More info at: https://goo.gl/w8JF4W
+  cursor: pointer;
+
+  &:after {
+    @include base-effects();
+    @include normalized-text();
+    background: $balloon-bg;
+    border-radius: 4px;
+    color: #fff;
+    content: attr(data-tip);
+    padding: .5em 1em;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  &:before {
+    @include svg-arrow($balloon-bg);
+    @include base-effects();
+
+    content: '';
+    position: absolute;
+    z-index: 10;
+  }
+
+  &:hover, &[data-balloon-visible] {
+    &:before,
+    &:after {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  
+  &:not([data-balloon-pos]) {
+      &:after {
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 5px + $balloon-arrow-height;
+        transform: translate(0, 10px);
+        transform-origin: top;
+      }
+      &:before {
+        bottom: 100%;
+        left: 0;
+        margin-bottom: 5px;
+        transform: translate(0, 10px);
+        transform-origin: top;
+      }
+
+      &:hover, &[data-balloon-visible] {
+        &:after {
+          transform: translate(0, 0);
+        }
+
+        &:before {
+          transform: translate(0, 0);
+        }
+      }
+  }
+
+  &.font-awesome:after {
+    font-family: FontAwesome;
+  }
+
+  &[data-balloon-break] {
+    &:after {
+      white-space: pre;
+    }
+  }
+
+  &[data-balloon-blunt] {
+    &:before,
+    &:after {
+      transition: none;
+    }
+  }
+
+  &[data-balloon-pos="up"] {
+    &:after {
+      bottom: 100%;
+      left: 50%;
+      margin-bottom: 5px + $balloon-arrow-height;
+      transform: translate(-50%, 10px);
+      transform-origin: top;
+    }
+    &:before {
+      bottom: 100%;
+      left: 50%;
+      margin-bottom: 5px;
+      transform: translate(-50%, 10px);
+      transform-origin: top;
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(-50%, 0);
+      }
+
+      &:before {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos="up-left"] {
+    &:after {
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 5px + $balloon-arrow-height;
+      transform: translate(0, 10px);
+      transform-origin: top;
+    }
+    &:before {
+      bottom: 100%;
+      left: 5px;
+      margin-bottom: 5px;
+      transform: translate(0, 10px);
+      transform-origin: top;
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, 0);
+      }
+
+      &:before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos="up-right"] {
+    &:after {
+      bottom: 100%;
+      right: 0;
+      margin-bottom: 5px + $balloon-arrow-height;
+      transform: translate(0, 10px);
+      transform-origin: top;
+    }
+    &:before {
+      bottom: 100%;
+      right: 5px;
+      margin-bottom: 5px;
+      transform: translate(0, 10px);
+      transform-origin: top;
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, 0);
+      }
+
+      &:before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos='down'] {
+    &:after {
+      left: 50%;
+      margin-top: 5px + $balloon-arrow-height;
+      top: 100%;
+      transform: translate(-50%, -10px);
+    }
+
+    &:before {
+      @include svg-arrow($balloon-bg, 'down');
+
+      left: 50%;
+      margin-top: 5px;
+      top: 100%;
+      transform: translate(-50%, -10px);
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(-50%, 0);
+      }
+
+      &:before {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos='down-left'] {
+    &:after {
+      left: 0;
+      margin-top: 5px + $balloon-arrow-height;
+      top: 100%;
+      transform: translate(0, -10px);
+    }
+
+    &:before {
+      @include svg-arrow($balloon-bg, 'down');
+
+      left: 5px;
+      margin-top: 5px;
+      top: 100%;
+      transform: translate(0, -10px);
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, 0);
+      }
+
+      &:before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos='down-right'] {
+    &:after {
+      right: 0;
+      margin-top: 5px + $balloon-arrow-height;
+      top: 100%;
+      transform: translate(0, -10px);
+    }
+
+    &:before {
+      @include svg-arrow($balloon-bg, 'down');
+
+      right: 5px;
+      margin-top: 5px;
+      top: 100%;
+      transform: translate(0, -10px);
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, 0);
+      }
+
+      &:before {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &[data-balloon-pos='left'] {
+    &:after {
+      margin-right: 5px + $balloon-arrow-height;
+      right: 100%;
+      top: 50%;
+      transform: translate(10px, -50%);
+    }
+
+    &:before {
+      @include svg-arrow($balloon-bg, 'left');
+
+      margin-right: 5px;
+      right: 100%;
+      top: 50%;
+      transform: translate(10px, -50%);
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, -50%);
+      }
+
+      &:before {
+        transform: translate(0, -50%);
+      }
+    }
+
+  }
+
+  &[data-balloon-pos='right'] {
+    &:after {
+
+      left: 100%;
+      margin-left: 5px + $balloon-arrow-height;
+      top: 50%;
+      transform: translate(-10px, -50%);
+    }
+
+    &:before {
+      @include svg-arrow($balloon-bg, 'right');
+
+      left: 100%;
+      margin-left: 0;
+      top: 50%;
+      transform: translate(-10px, -50%) rotate(90deg);
+    }
+
+    &:hover, &[data-balloon-visible] {
+      &:after {
+        transform: translate(0, -50%);
+      }
+
+      &:before {
+        transform: translate(0, -50%) rotate(90deg);
+      }
+    }
+  }
+
+  &[data-balloon-length='small'] {
+    &:after {
+      white-space: normal;
+      width: 80px;
+    }
+  }
+
+  &[data-balloon-length='medium'] {
+    &:after {
+      white-space: normal;
+      width: 150px;
+    }
+  }
+
+  &[data-balloon-length='large'] {
+    &:after {
+      white-space: normal;
+      width: 260px;
+    }
+  }
+
+  &[data-balloon-length='xlarge'] {
+    &:after {
+      white-space: normal;
+      width: 380px;
+
+      @media screen and (max-width: 768px) {
+        white-space: normal;
+        width: 90vw;
+      }
+    }
+  }
+
+  &[data-balloon-length='fit'] {
+    &:after {
+      white-space: normal;
+      width: 100%;
+    }
+  }
+}

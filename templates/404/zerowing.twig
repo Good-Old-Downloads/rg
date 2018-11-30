@@ -1,0 +1,155 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
+    <title>404 - All Your Page Are Belong To Us</title>
+    <style>
+    /* 
+        RESET ALL THE THINGS
+    */
+    * { box-sizing: border-box;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        line-height: 1;
+        background: #000;
+        overflow: hidden;
+    }
+    #allyourbase-fancy {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: -o-pixelated;
+        image-rendering: pixelated;
+        image-rendering: optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        min-height:100vh;
+    }
+    @media screen and  (orientation:portrait) {
+        #allyourbase-fancy {
+            min-height: auto;
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+    <canvas id="allyourbase-fancy"></canvas>
+    <script>
+        var frameTimeout = 5000;
+        var generateText = function(text, call){
+            text = text.toUpperCase();
+            var letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!,.()©:?' -";
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            canvas.width = 500;
+            canvas.height = 500;
+
+            var lettersImg = new Image();
+            lettersImg.onload = function(){
+                var lastPosX = 0;
+                var lastPosY = 0;
+                for (var i = 0; i < text.split('').length; i++) {
+                    var letter = text.split('')[i];
+                    context.drawImage(lettersImg, letters.indexOf(letter)*7, 0, 7, 7, lastPosX, lastPosY, 7, 7);
+                    lastPosX = lastPosX+8;
+                    if (letter === "\n") {
+                        lastPosX = 0;
+                        lastPosY = lastPosY+7+9;
+                    }
+                }
+                call(canvas, lastPosX);
+            };
+            lettersImg.src = '/static/img/404/zerowing/letters.png';
+        };
+        var canvas = document.getElementById('allyourbase-fancy');
+        var context = canvas.getContext('2d');
+        canvas.width = 320;
+        canvas.height = 224;
+
+        var imgFrames = new Image();
+        imgFrames.onload = function(){
+            var today = new Date();
+            generateText("IN A.D. "+today.getFullYear(), function(c, w){
+                context.drawImage(imgFrames, 0, 0);
+                context.drawImage(c, 100, 160);
+                setTimeout(function(){
+                    generateText("WAR WAS BEGINNING.", function(c, w){
+                        context.drawImage(imgFrames, 320, 0, 320, 224, 0, 0, 320, 224);
+                        context.drawImage(c, 105, 160);
+                        setTimeout(function(){
+                            generateText("CATS: HOW ARE YOU GENTLEMEN!!", function(c, w){
+                                context.drawImage(imgFrames, 320*2, 0, 320, 224, 0, 0, 320, 224);
+                                context.drawImage(c, 40, 160);
+                                setTimeout(function(){
+                                    generateText("CATS: ALL YOUR PAGE ARE BELONG\n      TO US.", function(c, w){
+                                        context.drawImage(imgFrames, 320*3, 0, 320, 224, 0, 0, 320, 224);
+                                        context.drawImage(c, 40, 160);
+                                        setTimeout(function(){
+                                            generateText("CATS: YOU ARE ON THE WAY TO\n      THE HOMEPAGE.", function(c, w){
+                                                context.drawImage(imgFrames, 320*4, 0, 320, 224, 0, 0, 320, 224);
+                                                context.drawImage(c, 40, 160);
+                                                setTimeout(function(){
+                                                    window.location.href = '/';
+                                                }, 5000);
+                                            });
+                                        }, frameTimeout);
+                                    });
+                                }, frameTimeout);
+                            });
+                        }, frameTimeout);
+                    });
+                }, frameTimeout);
+            });
+        };
+        imgFrames.src = '/static/img/404/zerowing/frames.png';
+
+        // Debugging text
+        var insertText = function(text,x, y){
+            generateText(text, function(c, w){
+                console.log(text,x, y);
+                var canvas = document.getElementById('allyourbase-fancy');
+                var context = canvas.getContext('2d');
+                context.drawImage(c, x, y);
+            });
+        };
+    </script>
+</body>
+</html>

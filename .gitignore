@@ -1,0 +1,8 @@
+/twig_cache/
+composer.phar
+/vendor/
+/config.php
+/scripts/images/*/
+/scripts/images/sym.txt
+/web/static/img/roms/*
+!/web/static/img/roms/README

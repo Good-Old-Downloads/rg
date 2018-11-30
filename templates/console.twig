@@ -1,0 +1,47 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% block title %}{{ console.name }}{% endblock title %}
+
+{% block content %}
+<div class="container console">
+    {% include 'top_bar.twig' %}
+    <h1>{{ console.name }}</h1>
+    <div class="console-details">
+        <img src="/static/img/consoles/images/{{ console.slug }}.png">
+        <p>{% if console.description %}{{ console.description|nl2br }}{% endif %}</p>
+        <div class="console-buttons">
+            <a href="/search/{{ console.slug }}">{% trans %}Browse ROMs{% endtrans %}</a>
+            {% if console.pack_link %}<a href="{{ console.pack_link }}">{% trans %}ROM Pack{% endtrans %}</a>{% endif %}
+            {% if console.bios_link %}<a href="{{ console.bios_link }}">{% trans %}BIOS Files{% endtrans %}</a>{% endif %}
+            {% if emulators %}
+                <div class="expand">
+                    {% if emulators|length > 1 %}
+                        <div class="label">{% trans %}Emulators{% endtrans %}<i class="fas fa-fw fa-caret-down"></i></div>
+                    {% else %}
+                        <div class="label">{% trans %}Emulator{% endtrans %}<i class="fas fa-fw fa-caret-down"></i></div>
+                    {% endif %}
+                    {% for emulator in emulators %}
+                        <a href="{{ emulator.link }}">{{ emulator.name }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

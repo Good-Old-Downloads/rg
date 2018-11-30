@@ -1,0 +1,67 @@
+{#
+    Copyright (C) 2018  GoodOldDownloads
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends 'main.twig' %}
+
+{% block title %}{{ 'Admin'|trans }}{% endblock title %}
+
+{% block content %}
+<div class="container">
+  {% include 'top_bar.twig' %}
+  <h1>{{ 'Admin'|trans }}</h1>
+  <h2>Notice</h2>
+  <form method="post">
+    <textarea name="notice_text" rows="5" style="width: 100%;">{{ notice }}</textarea>
+    <br>
+    <input type="submit" name="save_notice" value="Save">
+  </form>
+  <h2>Extra directory info</h2>
+  <b>Directory info sent with each ROM set to the ID.</b>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Console</th>
+      <th>Region</th>
+    </tr>
+    {% for info in dir_info %}
+    <tr>
+      <td>{{ info.id }}</td>
+      <td>{{ info.console }}</td>
+      <td>{{ info.region }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <hr>
+  <h2>Error Log</h2>
+  <b>ROMs that failed at parse for whatever reason.</b>
+  <p>Need to add in manually or fix parser.</p>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Console</th>
+    </tr>
+    {% for rom in rom_errors %}
+    <tr>
+      <td>{{ rom.name }}</td>
+      <td>{{ rom.console }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
